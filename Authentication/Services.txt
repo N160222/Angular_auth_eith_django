@@ -1,0 +1,68 @@
+
+import { Injectable } from '@angular/core';
+
+import {HttpClient, HttpClientModule,HttpHeaders} from '@angular/common/http';
+import { map } from 'rxjs/operators';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class JwtGetService {
+  api_link:string='http://localhost:8000/'
+  constructor(private http:HttpClient) { }
+
+  getusers(){
+    let token=localStorage.getItem('token');
+    let headers = new HttpHeaders({
+      'Authorization': `JWT ${token}` });
+    let options = { headers: headers };
+    return this.http.get(this.api_link+"rest-auth/user/",options);
+    // return this.http.get(this.api_link+"aboutus/acc/");
+
+  }
+  login(username: string, password: string) {
+    return this.http.post<any>(this.api_link.concat('accounts/auth/access-token/login/'),
+      { username, password })
+      .pipe(
+        map(object => {
+          if (object) {
+            // this.loginStatus.next(true);
+            // this.storeToken(object);
+            localStorage.setItem('token', object.token);
+          return object;
+        }
+      }
+        )
+      )
+  }
+  registration(username: string, password1: string, password2: string, email: string) {
+    return this.http.post<any>(this.api_link.concat('rest-auth/registration/'),
+      { username, password1,password2, email})
+      .pipe(
+        map(object => {
+          if (object) {
+            localStorage.setItem('reg_token', object.token);
+          return object;
+        }
+      }
+        )
+      )
+  }
+  
+  logout(){
+    let token=localStorage.getItem('token');
+    let headers = new HttpHeaders({
+      'Authorization': `JWT ${token}` });
+    let options = { headers: headers };
+    return this.http.post<any>(this.api_link.concat('rest-auth/logout/'),options)
+    .pipe(
+      map(
+        object=>{
+          if(object){
+            localStorage.removeItem('token');
+          }
+          return object;
+    }));
+  }
+  
+}

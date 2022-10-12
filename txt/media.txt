@@ -1,0 +1,25 @@
+#In admin/urls.py
+
+from django.conf import settings
+from django.conf.urls.static import static
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+
+
+---------------------settings.py-------------------------
+
+STATIC_ROOT =  os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+-----------------------Models.py----------------------------
+from django.contrib.auth.models import User
+    user_id=models.OneToOneField(User, on_delete=models.CASCADE)
+    dob = models.DateTimeField()
+    #auto_now_add = True
+    profile_picture = models.ImageField(upload_to = "images/")

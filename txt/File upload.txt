@@ -1,0 +1,39 @@
+STATIC_ROOT =  os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
+
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+---------------------------------urls.py---------------------------------------
+from django.conf.urls.static import static
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',include('backend.urls')),
+]
+
+if settings.DEBUG:
+        urlpatterns += static(settings.MEDIA_URL,
+                              document_root=settings.MEDIA_ROOT)
+
+-----------------------------------------------------------------------
+
+
+class UserProfile(models.Model):
+    firstname=models.CharField(max_length=50)
+    lastname=models.CharField(max_length=50)
+    email=models.EmailField(max_length=50)
+    
+    user_id=models.OneToOneField(User, on_delete=models.CASCADE)
+    dob = models.DateTimeField()
+    #auto_now_add = True
+    profile_picture = models.ImageField(upload_to = "images/")
+    mobile_number = models.IntegerField()
+    address = models.TextField()
+    skills = models.TextField()
+    def __str__(self):
+        return self.email

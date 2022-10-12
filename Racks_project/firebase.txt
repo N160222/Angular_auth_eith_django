@@ -1,0 +1,17 @@
+".read": "true",  // 2022-9-23
+".write": "true",  // 2022-9-23
+
+
+"$uid === auth.uid"
+
+
+".read": "auth != null",
+".write": "auth != null"
+
+"users": {
+         "$uid": {
+          	".read": "true",
+    		".write": "true"
+         }
+         
+      }

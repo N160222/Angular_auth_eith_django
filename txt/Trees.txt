@@ -1,0 +1,149 @@
+def inorder(root):
+
+    if root:
+        # Traverse left
+        inorder(root.left)
+        # Traverse root
+        print(str(root.val) + "->", end='')
+        # Traverse right
+        inorder(root.right)
+
+
+def postorder(root):
+
+    if root:
+        # Traverse left
+        postorder(root.left)
+        # Traverse right
+        postorder(root.right)
+        # Traverse root
+        print(str(root.val) + "->", end='')
+
+
+def preorder(root):
+
+    if root:
+        # Traverse root
+        print(str(root.val) + "->", end='')
+        # Traverse left
+        preorder(root.left)
+        # Traverse right
+        preorder(root.right)
+
+
+------------------------------------------------------------------
+def count_nodes(root):
+    if root is None:
+        return 0
+    return (1 + count_nodes(root.left) + count_nodes(root.right))
+
+------------------------------------------------------------------
+class Height:
+    def __init__(self):
+        self.height = 0
+
+
+def isHeightBalanced(root, height):
+
+    left_height = Height()
+    right_height = Height()
+
+    if root is None:
+        return True
+
+    l = isHeightBalanced(root.left, left_height)
+    r = isHeightBalanced(root.right, right_height)
+
+    height.height = max(left_height.height, right_height.height) + 1
+
+    if abs(left_height.height - right_height.height) <= 1:
+        return l and r
+
+    return False
+
+
+------------------------BST Search------------------------------------------
+If root == NULL 
+    return NULL;
+If number == root->data 
+    return root->data;
+If number < root->data 
+    return search(root->left)
+If number > root->data 
+    return search(root->right)
+
+
+---------------------------BST Insertion---------------------------------------
+If node == NULL 
+    return createNode(data)
+if (data < node->data)
+    node->left  = insert(node->left, data);
+else if (data > node->data)
+    node->right = insert(node->right, data);  
+return node;
+
+---------------------------BST minValueNode---------------------------------------------------
+
+# Find the inorder successor
+def minValueNode(node):
+    current = node
+
+    # Find the leftmost leaf
+    while(current.left is not None):
+        current = current.left
+
+    return current
+
+
+
+-------------------------BST Deleting a node-----------------------------------------------------
+
+# Deleting a node
+def deleteNode(root, key):
+
+    # Return if the tree is empty
+    if root is None:
+        return root
+
+    # Find the node to be deleted
+    if key < root.key:
+        root.left = deleteNode(root.left, key)
+    elif(key > root.key):
+        root.right = deleteNode(root.right, key)
+    else:
+        # If the node is with only one child or no child
+        if root.left is None:
+            temp = root.right
+            root = None
+            return temp
+
+        elif root.right is None:
+            temp = root.left
+            root = None
+            return temp
+
+        # If the node has two children,
+        # place the inorder successor in position of the node to be deleted
+        temp = minValueNode(root.right)
+
+        root.key = temp.key
+
+        # Delete the inorder successor
+        root.right = deleteNode(root.right, temp.key)
+
+    return root
+
+
+
+------------------------------------------------------------------------------
+
+
+
+
+
+------------------------------------------------------------------------------
+
+
+
+
+------------------------------------------------------------------------------

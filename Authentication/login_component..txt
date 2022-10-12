@@ -1,0 +1,30 @@
+ constructor(private JwtGet:JwtGetService,) { }
+  
+  ngOnInit(): void {
+    
+
+   
+
+  }
+  login(){
+    this.JwtGet.login('nook','123').subscribe(data=>{
+      console.log(data);
+    });
+  }
+  logout(){
+    this.JwtGet.logout().subscribe();
+    // this.JwtGet.logout();
+
+  }
+  registration(){
+    this.JwtGet.registration('lali','Nook@123','Nook@123','Lali@gmail.com').subscribe(data=>{
+      console.log("Registration");
+      console.log(data);
+    });
+
+  }
+  allusers(){
+    this.JwtGet.getusers().subscribe(data=>{
+      console.log(data);
+    });
+  }
