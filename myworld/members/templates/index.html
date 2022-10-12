@@ -1,0 +1,24 @@
+
+<h1>Members</h1>
+
+<table border="1">
+
+<tr>
+{% for i in cols %}
+
+<th>{{i}}</th>
+{% endfor %}
+</tr>
+
+
+
+{% for x,y in file1.items %}
+<tr>
+
+{% for j in y %}
+<td>{{ j }}</td>
+{% endfor %}
+
+</tr>
+{% endfor %}
+</table>
