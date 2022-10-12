@@ -1,0 +1,89 @@
+<!-- {% load bootstrap3 %}
+{% bootstrap_messages %} -->
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head >
+
+	<title>Basic Form</title>
+	
+	<meta charset="utf-8" />
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js">
+</script>
+
+  
+
+</head>
+
+<body style="background-color: #cfd9df !important;">
+	<nav class="navbar sticky-top navbar-dark bg-primary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#" style="color: white;">Basic Project</a>
+		  </div>
+	  </nav>
+	  
+	<div class="container">
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+		<h2>Registration Form</h2>
+			<!-- <form action="" method="post">
+			{%csrf_token %}
+
+			{% bootstrap_form form %}
+
+
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary ">
+				Submit
+				</button>
+
+				</div>
+				<p>
+					Already have account?<a href="{% url 'index' %}">Login</a>
+				</p>
+				</form> -->
+				
+  <form method="post" >
+    {% csrf_token %}
+	<!-- {% render_field form.firstname class="form-control" %}
+	{% render_field form.username class="form-control" placeholder=form.username.label %}
+	{% render_field form.password type="text" placeholder="Enter Name" class="form-control" %} -->
+	<!-- {{ form.password|add_error_class:"error-border" }} -->
+
+	<!-- {% with WIDGET_ERROR_CLASS='my_error' WIDGET_REQUIRED_CLASS='my_required' %}
+    {% render_field form.firstname %}
+    {% render_field form.username %}
+    {% render_field form.password %}
+{% endwith %} -->
+	<!-- {% render_field form.password|append_attr:"readonly:readonly" type="text" placeholder="Enter Name" class="form-control" %} -->
+    {% for field in form.visible_fields %}
+      <div class="form-group">
+        <label for="{{ field.id_for_label }}"> {{ field.label }}</label>
+        {{ field|add_class:'form-control' }}
+		{{ form.name|add_required_class:"is-required" }}
+        {% for error in field.errors %}
+          <span class="text-danger">{{ error }}</span>
+        {% endfor %}
+		
+		
+      </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary ">
+		Submit
+		</button>
+  </form>
+		</div>
+	</div>
+</div>
+
+</body>
+
+</html>
